@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.0/paper-full.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        <h1>Result in canvas</h1>
+        <canvas id="myCanvas" resize></canvas>
+        <h2>SHIFT-P to export</h2>
+
+        <h3>Inserted via img src=""</h3>
+        <div style="background: black; width: 100px;  height: 100px;">
+            <img src="./comeOn.svg" alt="">
+        </div>
+        <h1>Ciao!</h1>
+
+        <script>
+
+        paper.install(window);
+
+//currently name doesn't seem to work in some browsers.
+//Save SVG from paper.js as a file.
+var downloadAsSVG = function (fileName) {
+
+   if(!fileName) {
+       fileName = "sketch.svg"
+   }
+
+   var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
+
+   var link = document.createElement("a");
+   link.download = fileName;
+   link.href = url;
+   link.click();
+}
+
+var t;
+window.onload = function() {
+   // Setup directly from canvas id:
+   paper.setup('myCanvas');      
+
+   //Draw a circle
+   var radius = 30;
+   var circle = new Shape.Circle(new Point(50,50), radius);
+   circle.strokeColor = "#333333";
+   circle.fillColor = "#0084B0";
+
+   paper.view.update();
+
+   t = new Tool();
+
+   //Listen for SHIFT-P to save content as SVG file.
+   t.onKeyUp = function(event) {
+       if(event.character == "P") {
+           downloadAsSVG();
+       }
+   }
+}
+        </script>
+</body>
+</html>
