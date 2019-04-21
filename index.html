@@ -53,6 +53,21 @@ window.onload = function() {
 
    t = new Tool();
 
+    //Figure
+    var myPath = new Path();
+    myPath.strokeColor = 'black';
+
+        //Крыша
+        myPath.add(new Point(300, 10));
+        //Левое ребро
+        myPath.add(new Point(0, 10));
+        //Дно
+        myPath.add(new Point(0, 100));
+        myPath.add(new Point(300, 100));
+        //Правое ребро
+        myPath.add(new Point(300, 10));
+
+
    //Listen for SHIFT-P to save content as SVG file.
    t.onKeyUp = function(event) {
        if(event.character == "P") {
